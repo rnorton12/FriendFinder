@@ -10,38 +10,41 @@ var friendsData = require("../app/data/friends");
 // ROUTING
 // ===============================================================================
 
-module.exports = function(app) {
-  // API GET Requests
-  // Below code handles when users "visit" a page.
-  // In each of the below cases when a user visits a link
-  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
-  // ---------------------------------------------------------------------------
+module.exports = function (app) {
+    // API GET Requests
+    // Below code handles when users "visit" a page.
+    // In each of the below cases when a user visits a link
+    // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
+    // ---------------------------------------------------------------------------
 
-  app.get("/api/friends", function(req, res) {
-    res.json(friendsData);
-  });
+    app.get("/api/friends", function (req, res) {
+        res.json(friendsData);
+    });
 
-  // API POST Requests
-  // Below code handles when a user submits a form and thus submits data to the server.
-  // In each of the below cases, when a user submits form data (a JSON object)
-  // ...the JSON is pushed to the appropriate JavaScript array
-  // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
-  // ---------------------------------------------------------------------------
+    // API POST Requests
+    // Below code handles when a user submits a form and thus submits data to the server.
+    // In each of the below cases, when a user submits form data (a JSON object)
+    // ...the JSON is pushed to the appropriate JavaScript array
+    // (ex. User fills out a reservation request... this data is then sent to the server...
+    // Then the server saves the data to the tableData array)
+    // ---------------------------------------------------------------------------
 
-  app.post("/api/friends", function(req, res) {
-    var newFriend = friendsData(req.name, req.photo, req.scores);
-      console.log(newFriend.uniqueID, newFriend.name, newFriend.photo, newFriend.scores);
-    // Note the code here. Our "server" will respond to requests and let users compatibility results.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body-parser middleware
-    // if (tableData.length < 5) {
-    //   tableData.push(req.body);
-    //   res.json(true);
-    // }
-    // else {
-    //   waitListData.push(req.body);
-    //   res.json(false);
-    // }
-  });
+    app.post("/api/friends", function (req, res) {
+        // use array.map
+        
+        var currentUser = req.body;
+        var lastDifference = 0;
+        console.log(req.body);
+        friendsData.push(req.body);
+        var localfriendsArray = [];
+        //return req;
+        var totalDifference = 0;
+        for (var i = 0; i < friendsData.length - 1; i++) {
+            localfriendArray.push(friendsData[i]);
+            localfriendArray[]
+            for (var j = 0; j < localfriendArray[localfriendArray.length].scores.length; j++) {
+                totalDifference += Math.abs(currentUser[j] - friendsData[i].scores[j]);
+            }            
+        }
+    });
 }
