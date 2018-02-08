@@ -6,16 +6,19 @@
   <title>FriendFinder</title>
 
   <!-- Latest compiled and minified CSS & JS -->
-  <script src="https://code.jquery.com/jquery.js"></script>
+ <!-- <script src="https://code.jquery.com/jquery.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <!-- Font Awesome Glyphicons -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
   <!-- Chosen -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
-
+  <script type="text/javascript" async="" src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"></script>
 </head>
 
 <body>
@@ -30,7 +33,7 @@
     <input type="text" id="name" class="form-control" required>
 
     <h4>Link to Photo Image (Required)</h4>
-    <input type="text" id="photo" class="form-control" required>
+    <input type="text" id="photo" class="form-control" required value="http://via.placeholder.com/150x150">
 
     <hr>
 
@@ -56,7 +59,7 @@
       <option value="5">5 (Strongly Agree)</option>
     </select>
 
-
+　
     <h3><strong>Question 3</strong></h3>
     <h4>You find it easy to stay relaxed and focused even when there is some pressure.</h4>
     <select class="chosen-select" id="q3">
@@ -68,7 +71,7 @@
       <option value="5">5 (Strongly Agree)</option>
     </select>
 
-
+　
     <h3><strong>Question 4</strong></h3>
     <h4>You rarely do something just out of sheer curiosity.</h4>
     <select class="chosen-select" id="q4">
@@ -80,7 +83,7 @@
       <option value="5">5 (Strongly Agree)</option>
     </select>
 
-
+　
     <h3><strong>Question 5</strong></h3>
     <h4>People can rarely upset you.</h4>
     <select class="chosen-select" id="q5">
@@ -92,7 +95,7 @@
       <option value="5">5 (Strongly Agree)</option>
     </select>
 
-
+　
     <h3><strong>Question 6</strong></h3>
     <h4>It is often difficult for you to relate to other people’s feelings.</h4>
     <select class="chosen-select" id="q6">
@@ -104,7 +107,7 @@
       <option value="5">5 (Strongly Agree)</option>
     </select>
 
-
+　
     <h3><strong>Question 7</strong></h3>
     <h4>In a discussion, truth should be more important than people’s sensitivities.</h4>
     <select class="chosen-select" id="q7">
@@ -153,13 +156,13 @@
     <br>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
+    <button type="submit" class="btn btn-success btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
      Submit</button>
 
     <hr>
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/rnorton12/FriendFinder">GitHub Repo</a> | <a href="*">Home</a></p>
       </div>
     </footer>
 
@@ -251,8 +254,11 @@
           ]
         };
 
+        console.log(userData);
         // AJAX post the data to the friends API.
         $.post("/api/friends", userData, function(data) {
+
+          console.log("I got a response: ", data);
 
           // Grab the result from the AJAX post so that the best match's name and photo are displayed.
           $("#match-name").text(data.name);

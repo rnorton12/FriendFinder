@@ -6,6 +6,33 @@
 
 var friendsData = require("../app/data/friends");
 
+calcTotalDifference = function(user, candidate) {
+    var totalDiff = 0;
+    
+    var userScores = user.scores.map(function (x) {
+        return parseInt(x, 10);
+    });
+
+    console.log("userScores: ", userScores.join(" "));
+
+    var candidateScores = candidate.scores.map(function (x) {
+        return parseInt(x, 10);
+    });
+
+    console.log("candidateScores: ", candidateScores.join(" "));
+
+    for (var i = 0; i < userScores.length; i++) {
+        totalDiff += Math.abs(userScores[i] - candidateScores[i]);
+    }
+    console.log("totalDiff: ", totalDiff);
+
+    return {
+        name: candidate.name,
+        photo: candidate.photo,
+        totalDiff: totalDiff
+    };
+}
+
 // ===============================================================================
 // ROUTING
 // ===============================================================================
@@ -31,20 +58,46 @@ module.exports = function (app) {
 
     app.post("/api/friends", function (req, res) {
         // use array.map
-        
+
         var currentUser = req.body;
-        var lastDifference = 0;
-        console.log(req.body);
-        friendsData.push(req.body);
-        var localfriendsArray = [];
-        //return req;
-        var totalDifference = 0;
-        for (var i = 0; i < friendsData.length - 1; i++) {
-            localfriendArray.push(friendsData[i]);
-            localfriendArray[]
-            for (var j = 0; j < localfriendArray[localfriendArray.length].scores.length; j++) {
-                totalDifference += Math.abs(currentUser[j] - friendsData[i].scores[j]);
-            }            
+
+        console.log("currentUser: ", currentUser);
+
+        //var currentUser = {
+        //    name: "Roy",
+        //    photo: "my.jpg",
+        //    scores: ["1", "3", "1", "2", "1", "1", "2", "1", "1", "1"]
+        //};
+
+        // calculate the compatibility difference between current user and other users
+        var candidateArray = [];
+        for (var i = 0; i < friendsData.length; i++) {
+            candidateArray.push(calcTotalDifference(currentUser, friendsData[i]));
         }
+
+        // sort the candidate array in ascending order by compatibility difference
+        candidateArray.sort(function (a, b) {
+            var totalDiff1 = a.totalDiff;
+            var totalDiff2 = b.totalDiff;
+
+            if (totalDiff1 < totalDiff2) {
+                //sort ascending
+                return -1;
+            } else if (totalDiff1 > totalDiff2) {
+                return 1;
+            }
+            return 0; //default return value (no sorting)
+        });
+
+        for (var i = 0; i < candidateArray.length; i++) {
+           console.log(candidateArray[i].name, candidateArray[i].photo, candidateArray[i].totalDiff);
+        }
+
+        // add current user to friendsData
+        friendsData.push(currentUser);
+
+        console.log("Most compatible friend: ", candidateArray[0].name, candidateArray[0].photo, candidateArray[0].totalDiff);
+        res.json(candidateArray[0]);
+
     });
 }
