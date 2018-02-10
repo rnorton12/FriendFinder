@@ -8,7 +8,7 @@ FriendFinder is compatibility-based application that attempts to match you with 
 
 The app implements a full-stack web site based up *Express.js* to handle routing and is deployed on Heroku at https://obscure-basin-32437.herokuapp.com/.
 
-![App Demo](https://rnorton12.github.io/FriendFinder/demo/demo.gif)
+![App Demo](https://rnorton12.github.io/FriendFinder/images/demo.gif)
 
 　
 *Author: Roy Norton (C) 2018.*
