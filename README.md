@@ -6,11 +6,12 @@ FriendFinder is compatibility-based application that attempts to match you with 
 
 ## Requirements to run the app
 
-The app implements a full-stack web site based up *Express.js* to handle routing and is deployed on Heroku at https://obscure-basin-32437.herokuapp.com/
+The app implements a full-stack web site based up *Express.js* to handle routing and is deployed on Heroku at https://obscure-basin-32437.herokuapp.com/.
 
 ![App Demo](https://rnorton12.github.io/FriendFinder/demo.gif)
 
 　
 *Author: Roy Norton (C) 2018.*
+*HTML taken from: https://friend-finder-fsf.herokuapp.com/*
 
 　
