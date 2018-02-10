@@ -1,26 +1,33 @@
 // ===============================================================================
 // LOAD DATA
 // We are linking our routes to a series of "data" sources.
-// These data sources hold arrays of information on table-data, waitinglist, etc.
+// These data sources hold an array of friends
 // ===============================================================================
 
 var friendsData = require("../app/data/friends");
 
+// calculate the difference between the current user's score
+// and the scores of previous users to find the closest match
 calcTotalDifference = function(user, candidate) {
     var totalDiff = 0;
     
+    // convert current user's score from array characters to
+    // an array of integers
     var userScores = user.scores.map(function (x) {
         return parseInt(x, 10);
     });
 
     console.log("userScores: ", userScores.join(" "));
 
+    // convert each possible candidate's score from array characters to
+    // an array of integers
     var candidateScores = candidate.scores.map(function (x) {
         return parseInt(x, 10);
     });
 
     console.log("candidateScores: ", candidateScores.join(" "));
 
+    // compute the total score of each user and return it as an object
     for (var i = 0; i < userScores.length; i++) {
         totalDiff += Math.abs(userScores[i] - candidateScores[i]);
     }
@@ -62,12 +69,6 @@ module.exports = function (app) {
         var currentUser = req.body;
 
         console.log("currentUser: ", currentUser);
-
-        //var currentUser = {
-        //    name: "Roy",
-        //    photo: "my.jpg",
-        //    scores: ["1", "3", "1", "2", "1", "1", "2", "1", "1", "1"]
-        //};
 
         // calculate the compatibility difference between current user and other users
         var candidateArray = [];
